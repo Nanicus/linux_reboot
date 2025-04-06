@@ -1,0 +1,18 @@
+#Reboot Linux machine
+# test_command: "uptime" para verificar si la maquina se ha reiniciado correctamente
+# Timeout es para evitar que si hay algun fallo que la tarea se quede esperando eternamente.
+
+- name: Rebooting machine with message
+  ansible.builtin.reboot:
+    msg: "Rebooting machine in 5 seconds"
+  test_command: "uptime"
+  timeout: 300
+
+- name: Ping the machine to verify network connectivity
+  ansible.builtin.command:
+    cmd: "ping -c 3 {{ inventory_hostname }}"
+  register: ping_result
+
+- name: Show ping output
+  ansible.builtin.debug:
+    msg: "Ping result: {{ ping_result.stdout }}"

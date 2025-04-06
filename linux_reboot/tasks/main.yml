@@ -1,0 +1,6 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for linux_reboot
+- name : Linux reboot
+  include_tasks: tk_linux_reboot.yml
+  when: v_action == "linux_reboot"
